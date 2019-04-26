@@ -1,0 +1,32 @@
+{
+  "name": "vue-create-context",
+  "version": "1.0.0",
+  "description": "An abstracted util factory for creating declarative and reactive contexts component in Vue.",
+  "keywords": [
+    "vue"
+  ],
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "prettier": "prettier --config .prettierrc --write '**/*.{ts,tsx}'",
+    "type:check": "tsc --isolatedModules --noEmit ",
+    "type:watch": "yarn type:check --watch",
+    "type:emit": "rm -rf dist && tsc --declaration --removeComments --emitDeclarationOnly",
+    "build": "babel src --out-dir dist --extensions \".ts,.tsx\"",
+    "prepare": "yarn type:emit && yarn build"
+  },
+  "main": "index.js",
+  "types": "index.d.ts",
+  "repository": "https://github.com/leoyli/vue-create-context.git",
+  "author": "Leo Y. Li",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "7.4.3",
+    "@babel/core": "7.4.3",
+    "@babel/preset-env": "7.4.3",
+    "@babel/preset-typescript": "7.3.3",
+    "prettier": "1.17.0",
+    "typescript": "3.4.5"
+  }
+}
