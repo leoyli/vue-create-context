@@ -42,6 +42,7 @@ Note: If the provided value is reactive, update this value "reactively" will als
 ```vue
 <MyContext.Consumer v-slot="/* slot props: the value injected by the closed Provider */">
   /* you can access the value within the block */
+  /* note: as a normal renderless component, this block have no access to computed properties */
 </MyContext.Consumer>
 ```
 
@@ -49,7 +50,9 @@ The `Consumer` gives the access to the injected value from the closest `Provider
 
 It is worth to mention that due to the current implementation of Vue's scoped slot API, the slot props have to be an object, so it is recommended to give the value as an plan old javascript object (POJO). In the case of the provided value to be a primitive, it will be normalized as an object with a `value` key to get the passed value in `v-slot`, i.e. `{ value: /* your provided value */ }`.
 
-Note. You might be tempted to mutate the injected value from the consumer block. This is generally a bad idea since it violate the principle of "[props down, event up](https://vuejs.org/v2/style-guide/#Implicit-parent-child-communication-use-with-caution)"; therefore, it is recommend to treat the slot props as read only properties. Under the hood, this reactivity behaviour of slot props is just a reflection of the `provide/inject` API.
+Note: You might be tempted to mutate the injected value from the consumer block. This is generally a bad idea since it violate the principle of "[props down, event up](https://vuejs.org/v2/style-guide/#Implicit-parent-child-communication-use-with-caution)"; therefore, it is recommend to treat the slot props as read only properties. Under the hood, this reactivity behaviour of slot props is just a reflection of the `provide/inject` API.
+
+⚠️ **Caveat**: After chat with Vue's core team member @linusborg in Discord, the current constrain limits the template inside `Consumer` block have no access to the computed properties, but it can access to state value defined in `data` though.  Please use it with caution!
 
 ## 💎 Example
 

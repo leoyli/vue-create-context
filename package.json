@@ -1,6 +1,6 @@
 {
   "name": "vue-create-context",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An abstracted util factory for creating scoped, declarative, and reactive context-components in Vue.",
   "keywords": [
     "vue"
