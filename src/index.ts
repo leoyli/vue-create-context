@@ -9,7 +9,7 @@ export const createContext: createContext = (defaultValue) => {
       name: 'Context.Provider',
       props: ['value'],
       provide(this: any) {
-        return this.value === undefined ? undefined : { [key]: () => this.value };
+        return { [key]: () => this.value };
       },
       render(this: any) {
         return this.$slots.default;
@@ -17,20 +17,15 @@ export const createContext: createContext = (defaultValue) => {
     },
     Consumer: {
       name: 'Context.Consumer',
+      functional: true,
       inject: {
-        [key]: {
+        value: {
+          from: key,
           default: () => () =>
             defaultValue instanceof Object ? { ...defaultValue } : { value: defaultValue },
         },
       },
-      computed: {
-        value(this: any) {
-          return this[key]();
-        },
-      },
-      render(this: any) {
-        return this.$scopedSlots.default(this.value);
-      },
+      render: (h, contexts: any) => contexts.scopedSlots.default(contexts.injections.value()),
     },
   };
 };
