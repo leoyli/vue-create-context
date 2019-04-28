@@ -3,13 +3,19 @@ import { Component } from 'vue';
 type createContext = (defaultValue: unknown) => { Provider: Component; Consumer: Component };
 
 export const createContext: createContext = (defaultValue) => {
-  const key = `_${Date.now()}${Math.random()}`;
+  const _key = `_${Date.now()}${Math.random()}`;
+  const _context = {
+    from: _key,
+    default: () => () =>
+      defaultValue instanceof Object ? { ...defaultValue } : { value: defaultValue },
+  };
+
   return {
     Provider: {
       name: 'Context.Provider',
       props: ['value'],
       provide(this: any) {
-        return { [key]: () => this.value };
+        return { [_key]: () => this.value };
       },
       render(this: any) {
         return this.$slots.default;
@@ -19,13 +25,10 @@ export const createContext: createContext = (defaultValue) => {
       name: 'Context.Consumer',
       functional: true,
       inject: {
-        value: {
-          from: key,
-          default: () => () =>
-            defaultValue instanceof Object ? { ...defaultValue } : { value: defaultValue },
-        },
+        value: _context,
       },
       render: (h, contexts: any) => contexts.scopedSlots.default(contexts.injections.value()),
     },
+    _context,
   };
 };

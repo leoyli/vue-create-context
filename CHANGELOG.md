@@ -5,7 +5,18 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ---
 
-## [1.0.2] - 2019-04-26
+## [1.1.0] - 2019-04-28
+
+## Feature
+
+- Expose `._context` object for manual `inject` binding without the `Consumer` component.
+
+## Documentation
+
+- Update API documentation and add library highlights.
+
+
+## [1.0.2] - 2019-04-27
 
 ## Documentation
 
