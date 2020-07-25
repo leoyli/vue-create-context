@@ -2,7 +2,7 @@ import { Component } from 'vue';
 
 type createContext = (defaultValue: unknown) => { Provider: Component; Consumer: Component };
 
-export const createContext: createContext = (defaultValue) => {
+module.exports.createContext = (defaultValue) => {
   const _key = `_${Date.now()}${Math.random()}`;
   const _context = {
     from: _key,
